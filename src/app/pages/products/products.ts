@@ -54,7 +54,7 @@ export class Products {
   ];
 
   public whatsappLink(productName: string): string {
-    const phone = '5493382419754';
+    const phone = '5493424064362';
     const message = `Hola, quiero más información sobre el producto: ${productName}`;
     return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   }
