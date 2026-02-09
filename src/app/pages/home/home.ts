@@ -1,20 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { About } from '../about/about';
+import { About } from '../about/about';// hace falta?
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
   imports: [
     CommonModule,
     RouterLink,
-    About
+    About//hace falta?
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
   standalone: true
 })
 export class Home {
+
+   constructor(private title: Title, private meta: Meta) {
+    this.title.setTitle('H3 Logística de Campo | Coadyuvantes agrícolas');
+
+    this.meta.updateTag({
+      name: 'description',
+      content: 'H3 Logística de Campo ofrece coadyuvantes y soluciones para fumigaciones y aplicaciones agrícolas más eficientes.'
+    });
+  }
 
   images = [
     '/institutional/banner1.jpeg',

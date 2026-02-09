@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -10,15 +11,54 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './contact.css',
 })
 export class Contact {
+
+  constructor(private title: Title, private meta: Meta) {
+  this.title.setTitle('Contacto | H3 Logística de Campo');
+
+  this.meta.updateTag({
+    name: 'description',
+    content: 'Contactá a H3 Logística de Campo para asesoramiento en fumigaciones, agroquímicos y coadyuvantes agrícolas.'
+  });
+}
+
+  sending = false;
+
   model = {
     name: '',
     email: '',
     message: '',
   };
 
-  submit() {
-    console.log('Formulario enviado:', this.model);
-    alert('Gracias por contactarnos. Te responderemos a la brevedad.');
-    this.model = { name: '', email: '', message: '' };
+  async submit() {
+    if (this.sending) return;
+    this.sending = true;
+
+    const endpoint = 'https://formspree.io/f/mvzbgdjo';
+
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: this.model.name,
+          email: this.model.email,
+          message: this.model.message,
+        }),
+      });
+
+      if (res.ok) {
+        alert('Mensaje enviado correctamente');
+        this.model = { name: '', email: '', message: '' };
+      } else {
+        alert('Error al enviar el mensaje. Intentá nuevamente.');
+      }
+    } catch {
+      alert('Error de conexión. Revisá tu internet.');
+    } finally {
+      this.sending = false;
+    }
   }
 }
