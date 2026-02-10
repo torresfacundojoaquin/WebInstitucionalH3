@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { About } from '../about/about';// hace falta?
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
@@ -9,7 +8,6 @@ import { Title, Meta } from '@angular/platform-browser';
   imports: [
     CommonModule,
     RouterLink,
-    About//hace falta?
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
