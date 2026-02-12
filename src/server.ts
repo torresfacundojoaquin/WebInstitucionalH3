@@ -24,6 +24,10 @@ const angularApp = new AngularNodeAppEngine();
  * ```
  */
 
+app.get('/sitemap.xml', (req, res) => {
+  res.sendFile(join(import.meta.dirname, '../browser/sitemap.xml'));
+});
+
 /**
  * Serve static files from /browser
  */
