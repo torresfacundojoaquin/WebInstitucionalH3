@@ -84,3 +84,14 @@ button:hover:not(:disabled) {
     color: #16a34a;
     font-weight: 600;
 }
+
+.field input.ng-invalid.ng-touched,
+.field textarea.ng-invalid.ng-touched {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+}
+
+.field input.ng-valid.ng-touched,
+.field textarea.ng-valid.ng-touched {
+    border-color: #16a34a;
+}
