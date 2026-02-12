@@ -1,60 +1,72 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-contact',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './contact.html',
-  styleUrl: './contact.css',
+selector: 'app-contact',
+standalone: true,
+imports: [CommonModule, FormsModule],
+templateUrl: './contact.html',
+styleUrl: './contact.css',
 })
 export class Contact {
+sending = false;
 
-  sending = false;
+attemptedSubmit = false;
 
-  model = {
-    name: '',
-    email: '',
-    message: '',
-  };
+showModal = false;
+modalMessage = '';
+modalType: 'success' | 'error' = 'success';
 
-  async submit() {
-    if (this.sending) return;
+model = {
+name: '',
+email: '',
+message: '',
+};
 
-    this.sending = true;
+async submit(form: NgForm) {
+this.attemptedSubmit = true;
+form.control.markAllAsTouched();
 
-    const endpoint = 'https://formspree.io/f/mvzbgdjo';
+if (this.sending) return;
+if (!form.valid) return;
 
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: this.model.name,
-          email: this.model.email,
-          message: this.model.message,
-        }),
-      });
+this.sending = true;
 
-      if (res.ok) {
-        alert('Mensaje enviado correctamente');
-        this.model = {
-          name: '',
-          email: '',
-          message: '',
-        };
-      } else {
-        alert('Error al enviar el mensaje. Intentá nuevamente.');
-      }
+const endpoint = 'https://formspree.io/f/mvzbgdjo';
 
-    } catch {
-      alert('Error de conexión. Revisá tu internet.');
-    } finally {
-      this.sending = false;
-    }
+try {
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(this.model),
+  });
+
+  if (res.ok) {
+    this.openModal('Mensaje enviado correctamente 🎉', 'success');
+    form.resetForm();
+    this.attemptedSubmit = false;
+  } else {
+    this.openModal('Error al enviar el mensaje. Intentá nuevamente.', 'error');
   }
+} catch {
+  this.openModal('Error de conexión. Revisá tu internet.', 'error');
+} finally {
+  this.sending = false;
+}
+}
+
+openModal(message: string, type: 'success' | 'error') {
+this.modalMessage = message;
+this.modalType = type;
+this.showModal = true;
+}
+
+closeModal() {
+this.showModal = false;
+this.modalMessage = '';
+}
 }
