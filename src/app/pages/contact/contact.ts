@@ -36,7 +36,7 @@ export class Contact {
     const endpoint = 'https://api.web3forms.com/submit';
 
     const payload = {
-      access_key: 'caae9863-1ba2-458c-8814-502e6f9bcc0e',
+      access_key: '3e593baf-a712-42ae-b5e2-ca7b38be9793',
       name: this.model.name,
       email: this.model.email,
       message: this.model.message,
