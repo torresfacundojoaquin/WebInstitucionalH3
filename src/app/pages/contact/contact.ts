@@ -33,7 +33,18 @@ export class Contact {
 
     this.sending = true;
 
-    const endpoint = 'https://formspree.io/f/mvzbgdjo';
+    const endpoint = 'https://api.web3forms.com/submit';
+
+    const payload = {
+      access_key: '3e593baf-a712-42ae-b5e2-ca7b38be9793',
+      name: this.model.name,
+      email: this.model.email,
+      message: this.model.message,
+
+      subject: 'Nueva consulta desde la web',
+      from_name: this.model.name,
+      replyto: this.model.email,
+    };
 
     try {
       const res = await fetch(endpoint, {
@@ -42,13 +53,15 @@ export class Contact {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(this.model),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
         this.openModal('Mensaje enviado correctamente 🎉', 'success');
         form.resetForm();
         this.attemptedSubmit = false;
+      } else if (res.status === 429) {
+        this.openModal('Se alcanzó el límite mensual de mensajes. Probá más tarde.', 'error');
       } else {
         this.openModal('Error al enviar el mensaje. Intentá nuevamente.', 'error');
       }
