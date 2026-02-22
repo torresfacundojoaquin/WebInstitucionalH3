@@ -1,5 +1,7 @@
 {
   "name": "web-institucional-h3",
-  "pages_build_output_dir": "dist/WebInstitucionalH3/browser",
+  "assets": {
+    "directory": "dist/WebInstitucionalH3/browser"
+  },
   "compatibility_date": "2026-02-22"
 }
