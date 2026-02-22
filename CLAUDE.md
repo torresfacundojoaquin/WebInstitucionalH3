@@ -4,8 +4,8 @@
 
 Institutional website for **H3 Logistica de Campo**, an Argentine agricultural company specializing in crop adjuvants and agrochemical solutions. Built as a modern Angular SPA with static prerendering (SSG).
 
-**Live URL:** Deployed on Cloudflare Pages
-**Repository:** `facundojoaquintorres8/WebInstitucionalH3`
+**Live URL:** Deployed on Cloudflare Workers (static assets)
+**Repository:** `torresfacundojoaquin/WebInstitucionalH3`
 
 ## Tech Stack
 
@@ -101,6 +101,8 @@ chore: update Angular to v21.1
 docs: update sitemap with new routes
 ```
 
+**IMPORTANT:** Never add `Co-Authored-By` trailers to commits.
+
 ### PR Guidelines
 
 - One feature or fix per PR.
@@ -114,12 +116,17 @@ docs: update sitemap with new routes
 
 ## Deployment
 
-- **Platform:** Cloudflare Pages (static hosting)
+- **Platform:** Cloudflare Workers (static assets via Git integration)
 - **Build command:** `npm run build`
-- **Output directory:** `dist/WebInstitucionalH3/browser`
+- **Deploy command:** `npx wrangler deploy`
+- **Output directory:** `dist/WebInstitucionalH3/browser` (configured in `wrangler.json`)
 - All routes are prerendered at build time — no server required
 - Set `NODE_VERSION=22` environment variable in Cloudflare dashboard
 - Security and cache headers configured via `public/_headers`
+- Auto-deploys on push to `main`
+- **Production URL:** `web-institucional-h3.facundojoaquintorres8.workers.dev`
+- **Custom domains:** `h3logisticadecampo.com` / `www.h3logisticadecampo.com`
+- **Preview URLs:** Pushes to non-`main` branches auto-deploy to `<branch>-web-institucional-h3.facundojoaquintorres8.workers.dev` for testing before merging
 
 ## Important Notes
 

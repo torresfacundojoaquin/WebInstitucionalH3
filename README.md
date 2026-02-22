@@ -1,59 +1,45 @@
-# WebInstitucionalH3
+# H3 Logistica de Campo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.3.
+Institutional website for **H3 Logistica de Campo**, an Argentine agricultural company specializing in crop adjuvants and agrochemical solutions.
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+- **Angular 21** (standalone components, static prerendering)
+- **TypeScript 5.9** (strict mode)
+- **Tailwind CSS**
+- **Vitest + JSDOM** for testing
+- **Cloudflare Workers** for hosting (static assets)
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Getting Started
 
 ```bash
-ng generate component component-name
+npm install
+npm start         # Dev server at http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Scripts
+
+| Command           | Description                        |
+| ----------------- | ---------------------------------- |
+| `npm start`       | Start dev server                   |
+| `npm run build`   | Production build (static prerender)|
+| `npm test`        | Run unit tests                     |
+| `npm run watch`   | Dev build with file watching       |
+
+## Build
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
+Output is generated in `dist/WebInstitucionalH3/browser` with prerendered HTML for all routes.
 
-To build the project run:
+## Deployment
 
-```bash
-ng build
-```
+Hosted on **Cloudflare Workers** with static assets. Deployment is automatic on push to `main` via Git integration.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- **Build command:** `npm run build`
+- **Deploy command:** `npx wrangler deploy`
+- **Output directory:** `dist/WebInstitucionalH3/browser`
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Configuration is in `wrangler.json`.
